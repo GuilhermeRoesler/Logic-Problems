@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "souls.h"
 
 // --- CORES ---
@@ -100,4 +101,48 @@ void print_matrix_float(float* arr, int rows, int cols) {
         }
         printf("]\n");
     }
+}
+
+// ==========================================
+// VETORES - GERENCIAMENTO
+// ==========================================
+
+// inicializa o vetor
+void initVetor(Vetor* v) {
+    v->size = 0;
+    v->capacity = 4; // capacidade inicial
+    v->dados = malloc(v->capacity * sizeof(int));
+    if (v->dados == NULL) {
+        printf("Erro de alocação!\n");
+        exit(1);
+    }
+}
+
+// adiciona elemento ao vetor
+void pushBack(Vetor* v, int valor) {
+    if (v->size == v->capacity) {
+        // dobra a capacidade
+        v->capacity *= 2;
+        v->dados = realloc(v->dados, v->capacity * sizeof(int));
+        if (v->dados == NULL) {
+            printf("Erro de realocação!\n");
+            exit(1);
+        }
+    }
+    v->dados[v->size] = valor;
+    v->size++;
+}
+
+void showVetor(Vetor* v) {
+    printf(COLOR_ARRAY "[");
+    for (int i = 0; i < v->size; i++) printf("%d%s", v->dados[i], (i < v->size - 1) ? ", " : "");
+    printf("]" COLOR_RESET "\n");
+}
+
+// libera memória
+void freeVetor(Vetor* v) {
+    free(v->dados);
+    v->dados = NULL;
+    v->size = 0;
+    v->capacity = 0;
 }

@@ -29,6 +29,18 @@ void print_matrix_int(int* arr, int rows, int cols);
 void print_matrix_double(double* arr, int rows, int cols);
 void print_matrix_float(float* arr, int rows, int cols);
 
+// Vetores (Gerenciamento)
+typedef struct {
+    int* dados;     // ponteiro para os elementos
+    int size;       // quantidade de elementos usados
+    int capacity;   // capacidade atual alocada
+} Vetor;
+
+void initVetor(Vetor* v);
+void pushBack(Vetor* v, int valor);
+void showVetor(Vetor* v);
+void freeVetor(Vetor* v);
+
 // ==========================================
 // MACRO MESTRA: SELETOR DE ARGUMENTOS
 // ==========================================
